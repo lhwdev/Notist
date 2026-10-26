@@ -1,8 +1,8 @@
 package io.github.lhwdev.notist.core.ast.inline
 
-import io.github.lhwdev.notist.core.util.serialization.BasePolymorphicRegistry
-import io.github.lhwdev.notist.core.util.serialization.PolymorphicRegistry
-import io.github.lhwdev.notist.core.util.serialization.RegistryPolymorphicSerializer
+import io.github.lhwdev.notist.utils.serialization.BasePolymorphicRegistry
+import io.github.lhwdev.notist.utils.serialization.PolymorphicRegistry
+import io.github.lhwdev.notist.utils.serialization.RegistryPolymorphicSerializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlin.reflect.KClass
@@ -33,20 +33,3 @@ interface InlineNode {
 object InlineNodeSerializer :
 	RegistryPolymorphicSerializer<InlineNode>(baseClass = InlineNode::class, registry = InlineNode)
 
-@Serializable
-class Text(val text: String, override val marks: List<Mark>) : InlineNode {
-	companion object Type : InlineNodeType<Text> {
-		override val key: String
-			get() = "text"
-		override val kClass: KClass<Text>
-			get() = Text::class
-	}
-	
-	override val type: Type
-		get() = Type
-	
-	override val isText: Boolean
-		get() = true
-	
-	override fun isMarkAllowed(mark: Mark): Boolean = true
-}

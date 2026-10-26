@@ -3,5 +3,6 @@ plugins {
 }
 
 commonDependencies {
+	implementation(projects.core.common)
 	implementation(projects.core.model)
 }

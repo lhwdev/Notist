@@ -46,6 +46,7 @@ fun includeModule(path: String) {
 }
 
 includeModule(":core")
+includeModule(":core:common")
 includeModule(":core:model")
 includeModule(":core:ast")
 includeModule(":core:storage")

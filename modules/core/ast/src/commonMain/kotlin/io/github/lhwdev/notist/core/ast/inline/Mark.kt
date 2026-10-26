@@ -1,11 +1,10 @@
 package io.github.lhwdev.notist.core.ast.inline
 
-import io.github.lhwdev.notist.core.util.serialization.BasePolymorphicRegistry
-import io.github.lhwdev.notist.core.util.serialization.PolymorphicRegistry
-import io.github.lhwdev.notist.core.util.serialization.RegistryPolymorphicSerializer
+import io.github.lhwdev.notist.utils.serialization.BasePolymorphicRegistry
+import io.github.lhwdev.notist.utils.serialization.PolymorphicRegistry
+import io.github.lhwdev.notist.utils.serialization.RegistryPolymorphicSerializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 import kotlin.reflect.KClass
 
 
