@@ -1,6 +1,6 @@
-package io.github.lhwdev.notist.utils.serialization
+package io.github.lhwdev.notist.common.serialization
 
-import io.github.lhwdev.notist.utils.data.Binary
+import io.github.lhwdev.notist.common.data.Binary
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 

@@ -1,6 +1,6 @@
 @file:Suppress("ERROR_SUPPRESSION", "INVISIBLE_REFERENCE")
 
-package io.github.lhwdev.notist.utils.serialization
+package io.github.lhwdev.notist.common.serialization
 
 import kotlinx.serialization.*
 import kotlinx.serialization.builtins.serializer

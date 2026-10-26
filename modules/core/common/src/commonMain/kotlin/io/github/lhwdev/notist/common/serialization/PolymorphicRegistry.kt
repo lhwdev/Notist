@@ -1,7 +1,6 @@
-package io.github.lhwdev.notist.utils.serialization
+package io.github.lhwdev.notist.common.serialization
 
 import kotlinx.serialization.KSerializer
-import kotlin.collections.get
 import kotlin.reflect.KClass
 
 

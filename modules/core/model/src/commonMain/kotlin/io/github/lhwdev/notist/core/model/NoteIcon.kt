@@ -4,6 +4,4 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-class NoteIcon {
-
-}
+class NoteIcon

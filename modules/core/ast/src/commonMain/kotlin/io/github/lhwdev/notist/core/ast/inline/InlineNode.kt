@@ -1,8 +1,8 @@
 package io.github.lhwdev.notist.core.ast.inline
 
-import io.github.lhwdev.notist.utils.serialization.BasePolymorphicRegistry
-import io.github.lhwdev.notist.utils.serialization.PolymorphicRegistry
-import io.github.lhwdev.notist.utils.serialization.RegistryPolymorphicSerializer
+import io.github.lhwdev.notist.common.serialization.PolymorphicRegistry
+import kotlinx.serialization.ContextualSerializer
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlin.reflect.KClass
@@ -16,8 +16,6 @@ interface InlineNodeType<T : InlineNode> : PolymorphicRegistry.RegistryItem<T> {
 
 @Serializable(with = InlineNodeSerializer::class)
 interface InlineNode {
-	companion object : BasePolymorphicRegistry<InlineNode, InlineNodeType<InlineNode>>()
-	
 	val type: InlineNodeType<*>
 	
 	
@@ -30,6 +28,6 @@ interface InlineNode {
 	fun isMarkAllowed(mark: Mark): Boolean = false
 }
 
-object InlineNodeSerializer :
-	RegistryPolymorphicSerializer<InlineNode>(baseClass = InlineNode::class, registry = InlineNode)
+@OptIn(ExperimentalSerializationApi::class)
+object InlineNodeSerializer : KSerializer<InlineNode> by ContextualSerializer(InlineNode::class)
 

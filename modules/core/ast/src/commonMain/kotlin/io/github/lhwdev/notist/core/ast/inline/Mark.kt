@@ -1,8 +1,8 @@
 package io.github.lhwdev.notist.core.ast.inline
 
-import io.github.lhwdev.notist.utils.serialization.BasePolymorphicRegistry
-import io.github.lhwdev.notist.utils.serialization.PolymorphicRegistry
-import io.github.lhwdev.notist.utils.serialization.RegistryPolymorphicSerializer
+import io.github.lhwdev.notist.common.serialization.PolymorphicRegistry
+import kotlinx.serialization.ContextualSerializer
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlin.reflect.KClass
@@ -19,9 +19,6 @@ interface MarkType<T : Mark> : PolymorphicRegistry.RegistryItem<T> {
 
 @Serializable(with = MarkSerializer::class)
 interface Mark {
-	companion object : BasePolymorphicRegistry<Mark, MarkType<Mark>>()
-	
-	
 	val type: MarkType<*>
 	
 	
@@ -40,15 +37,6 @@ interface Mark {
 	 */
 	fun merge(right: Mark): Mark? =
 		takeIf { this == right }
-	
-	/**
-	 * Whether this mark can be visually represented as one chunk, joined with [right].
-	 * For example, when two [FormattingMark.Code] is adjacent, they will be shown as one rectangular shape.
-	 *
-	 * If both `a.mergeVisually(b)` and `b.mergeVisually(c)`, a, b, c can be visually merged.
-	 */
-	fun mergeVisually(right: Mark): Boolean =
-		merge(right) != null
 }
 
 interface SingletonMark<T : Mark> : Mark, MarkType<T> {
@@ -60,4 +48,5 @@ interface SingletonMark<T : Mark> : Mark, MarkType<T> {
 }
 
 
-object MarkSerializer : RegistryPolymorphicSerializer<Mark>(baseClass = Mark::class, registry = Mark)
+@OptIn(ExperimentalSerializationApi::class)
+object MarkSerializer : KSerializer<Mark> by ContextualSerializer(Mark::class)

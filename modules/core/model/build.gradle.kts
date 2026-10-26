@@ -3,5 +3,5 @@ plugins {
 }
 
 commonDependencies {
-	implementation(projects.core.common)
+	api(projects.core.common)
 }

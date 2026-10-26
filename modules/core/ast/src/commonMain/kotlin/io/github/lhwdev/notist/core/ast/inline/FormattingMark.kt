@@ -16,7 +16,7 @@ object FormattingMark {
 	}
 	
 	@Serializable
-	data object Underlined : SingletonMark<Underlined> {
+	data object Underline : SingletonMark<Underline> {
 		override val key: String = "underlined"
 	}
 	
