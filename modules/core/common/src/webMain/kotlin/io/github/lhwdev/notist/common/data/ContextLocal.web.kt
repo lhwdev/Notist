@@ -9,7 +9,7 @@ actual class PlatformContextLocal<T> actual constructor(private val defaultValue
 	internal var _current: Any? = try {
 		defaultValue()
 	} catch(e: Throwable) {
-		null
+		DefaultValuePlaceholder
 	}
 	
 	actual val current: T
