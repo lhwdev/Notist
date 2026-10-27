@@ -13,14 +13,8 @@ actual class PlatformContextLocal<T> actual constructor(defaultValue: () -> T) {
 	actual val current: T
 		get() = threadLocal.get()
 	
-	actual inline fun <R> with(new: T, block: () -> R): R {
-		val previous = threadLocal.get()
-		return try {
-			threadLocal.set(new)
-			block()
-		} finally {
-			threadLocal.set(previous)
-		}
+	actual fun set(new: T) {
+		threadLocal.set(new)
 	}
 	
 	actual suspend inline fun <R> withSuspend(new: T, crossinline block: suspend () -> R): R =

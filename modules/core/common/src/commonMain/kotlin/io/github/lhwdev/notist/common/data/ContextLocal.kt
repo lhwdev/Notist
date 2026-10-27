@@ -14,11 +14,23 @@ value class ContextLocal<T> private constructor(@PublishedApi internal val local
 	
 	inline operator fun invoke(): T = current
 	
-	inline fun <R> with(new: T, block: () -> R): R =
-		local.with(new, block)
+	inline fun <R> with(new: T, block: () -> R): R {
+		val previous = local.current
+		local.set(new)
+		return try {
+			block()
+		} finally {
+			local.set(previous)
+		}
+	}
 	
 	suspend inline fun <R> withSuspend(new: T, crossinline block: suspend () -> R): R =
 		local.withSuspend(new, block)
+	
+	@Deprecated("Unsafe API", level = DeprecationLevel.ERROR)
+	fun set(new: T) {
+		local.set(new)
+	}
 	
 	
 	companion object {
@@ -31,7 +43,7 @@ value class ContextLocal<T> private constructor(@PublishedApi internal val local
 expect class PlatformContextLocal<T>(defaultValue: () -> T) {
 	val current: T
 	
-	inline fun <R> with(new: T, block: () -> R): R
+	fun set(new: T)
 	
 	suspend inline fun <R> withSuspend(new: T, crossinline block: suspend () -> R): R
 }

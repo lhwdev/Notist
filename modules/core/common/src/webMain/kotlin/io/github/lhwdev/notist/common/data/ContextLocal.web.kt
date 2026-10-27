@@ -22,14 +22,8 @@ actual class PlatformContextLocal<T> actual constructor(private val defaultValue
 			}
 		}
 	
-	actual inline fun <R> with(new: T, block: () -> R): R {
-		val previous = _current
-		return try {
-			_current = new
-			block()
-		} finally {
-			_current = previous
-		}
+	actual fun set(new: T) {
+		_current = new
 	}
 	
 	actual suspend inline fun <R> withSuspend(new: T, crossinline block: suspend () -> R): R {
