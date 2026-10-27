@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
 
 plugins {
 	id("org.jetbrains.kotlin.multiplatform")
@@ -10,6 +9,10 @@ plugins {
 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 configure<KotlinMultiplatformExtension> {
+	compilerOptions {
+		freeCompilerArgs.add("-Xexpect-actual-classes")
+	}
+	
 	jvm()
 	
 	js {
